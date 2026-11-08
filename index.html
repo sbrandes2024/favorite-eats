@@ -1,0 +1,56 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Favorite Eats</title><meta name="theme-color" content="#c2410c">
+<link rel="manifest" href="manifest.json"><link rel="icon" href="icon.svg"><link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,sans-serif;background:#fff8f1;color:#3b2a1e}
+header{background:#c2410c;color:#fff;padding:14px 16px;font-size:22px;font-weight:700}
+main{padding:14px;max-width:640px;margin:auto;padding-bottom:90px}
+.big{display:block;width:100%;padding:22px;font-size:22px;font-weight:700;border:0;border-radius:18px;background:#ea580c;color:#fff;box-shadow:0 4px 12px #ea580c55}
+button{font-size:17px;padding:12px 14px;border-radius:12px;border:1px solid #e7cdb6;background:#fff;color:#3b2a1e;min-height:48px}
+button.pri{background:#ea580c;color:#fff;border:0}
+.card{background:#fff;border-radius:16px;padding:14px;margin:12px 0;box-shadow:0 2px 8px #0001}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.muted{color:#8a6f5c;font-size:14px}h2{font-size:19px;margin:18px 0 6px}
+input,select,textarea{font-size:17px;padding:12px;border:1px solid #e7cdb6;border-radius:12px;width:100%;background:#fff}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:#fff;border-top:1px solid #eadbcc;padding-bottom:env(safe-area-inset-bottom)}
+nav button{flex:1;border:0;border-radius:0;font-size:15px;padding:14px 4px}nav button.on{color:#c2410c;font-weight:700}
+.stars span{font-size:34px;cursor:pointer;color:#ddd}.stars span.on{color:#f59e0b}
+.place{display:flex;gap:12px}.place img{width:72px;height:72px;object-fit:cover;border-radius:12px}
+.pick{display:block;width:100%;text-align:left;margin:6px 0}
+.hl{background:#fff1e6;border:2px solid #fdba74}
+#map{height:70vh;border-radius:16px}
+.modal{position:fixed;inset:0;background:#0007;display:none;align-items:flex-end;z-index:2000}
+.modal.show{display:flex}.sheet{background:#fff8f1;width:100%;max-height:92vh;overflow:auto;border-radius:20px 20px 0 0;padding:16px}
+footer{text-align:center;color:#8a6f5c;font-size:13px;margin:24px 0}
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#3b2a1e;color:#fff;padding:12px 18px;border-radius:12px;display:none;z-index:3000}
+</style></head><body>
+<header>🍽️ Favorite Eats</header>
+<main>
+<section id="v-home">
+<button class="big" id="remember">📍 Remember where I am</button>
+<div id="nearbyPrompt"></div>
+<h2>Haven't been in a while</h2><div class="muted">Places you loved (4 or 5 stars) and haven't visited in 60 days.</div><div id="stale"></div>
+<h2>Recent</h2><div id="recent"></div>
+</section>
+<section id="v-list" hidden>
+<input id="q" placeholder="Search name, notes, cuisine">
+<div class="row" style="margin-top:8px"><select id="sort" style="flex:1"><option value="rating">Best rated</option><option value="last">Last visited</option><option value="dist">Closest</option><option value="count">Most visits</option></select>
+<select id="cuis" style="flex:1"><option value="">All cuisines</option></select></div>
+<div id="list"></div>
+</section>
+<section id="v-map" hidden><div id="map"></div></section>
+<section id="v-more" hidden>
+<div class="card"><h2>Backup and share</h2><p class="muted">Export saves a file with all your places. Import it on Brenda's phone to copy the list over (it merges, nothing gets erased).</p>
+<div class="row"><button class="pri" id="exp">Export list</button><button id="impB">Import list</button><input type="file" id="imp" accept=".json,application/json" hidden></div></div>
+<div class="card"><h2>Add a place by hand</h2><button id="manualAdd">Add without GPS</button></div>
+<div class="card muted">Your list lives on this phone only. Export now and then to keep a backup.</div>
+</section>
+<footer>A project by Steve Brandes</footer>
+</main>
+<nav><button data-v="home" class="on">🏠 Home</button><button data-v="list">⭐ Favorites</button><button data-v="map">🗺️ Map</button><button data-v="more">⚙️ More</button></nav>
+<div class="modal" id="modal"><div class="sheet" id="sheet"></div></div>
+<div class="toast" id="toast"></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="app.js"></script></body></html>

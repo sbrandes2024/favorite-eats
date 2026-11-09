@@ -24,6 +24,7 @@ nav button{flex:1;border:0;border-radius:0;font-size:15px;padding:14px 4px}nav b
 .modal{position:fixed;inset:0;background:#0007;display:none;align-items:flex-end;z-index:2000}
 .modal.show{display:flex}.sheet{background:#fff8f1;width:100%;max-height:92vh;overflow:auto;border-radius:20px 20px 0 0;padding:16px}
 footer{text-align:center;color:#8a6f5c;font-size:13px;margin:24px 0}
+.qrBox{text-align:center;padding:12px;background:#fff;border-radius:16px;margin:12px 0}.qrBox canvas,.qrBox img{max-width:100%;height:auto}
 .toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#3b2a1e;color:#fff;padding:12px 18px;border-radius:12px;display:none;z-index:3000}
 </style></head><body>
 <header>🍽️ Favorite Eats</header>
@@ -42,10 +43,19 @@ footer{text-align:center;color:#8a6f5c;font-size:13px;margin:24px 0}
 </section>
 <section id="v-map" hidden><div id="map"></div></section>
 <section id="v-more" hidden>
-<div class="card"><h2>Backup and share</h2><p class="muted">Export saves a file with all your places. Import it on Brenda's phone to copy the list over (it merges, nothing gets erased).</p>
+<div class="card"><h2>Who is using this phone?</h2>
+<p class="muted">Your name is saved with each visit so you and Brenda can tell who added what.</p>
+<input id="myName" placeholder="Your name (Steve, Brenda...)" maxlength="40">
+</div>
+<div class="card"><h2>Share my whole list</h2>
+<p class="muted">Makes a link and a QR code with your list (no photos). The other phone opens it and merges. Nothing gets erased.</p>
+<button class="pri" id="syncList" style="width:100%">Sync with Brenda / Share my whole list</button>
+</div>
+<div class="card"><h2>Backup file</h2>
+<p class="muted">Export saves a file with all your places, including photos. Import merges on the other phone.</p>
 <div class="row"><button class="pri" id="exp">Export list</button><button id="impB">Import list</button><input type="file" id="imp" accept=".json,application/json" hidden></div></div>
 <div class="card"><h2>Add a place by hand</h2><button id="manualAdd">Add without GPS</button></div>
-<div class="card muted">Your list lives on this phone only. Export now and then to keep a backup.</div>
+<div class="card muted">Your list lives on this phone. Use Share my whole list or Export to keep Steve and Brenda in sync.</div>
 </section>
 <footer>A project by Steve Brandes</footer>
 </main>
@@ -53,4 +63,5 @@ footer{text-align:center;color:#8a6f5c;font-size:13px;margin:24px 0}
 <div class="modal" id="modal"><div class="sheet" id="sheet"></div></div>
 <div class="toast" id="toast"></div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="qrcode.min.js"></script>
 <script src="app.js"></script></body></html>
